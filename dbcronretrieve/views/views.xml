@@ -1,0 +1,165 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <!--the database module-->
+        <record model="ir.ui.view" id="e3tmad_db_list">
+            <field name="name">dbCronRetrieve db list</field>
+            <field name="model">e3tmad.database</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="driver"/>
+                    <field name="dbname"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="e3tmad_db_form">
+            <field name="name">dbCronRetrieve db list</field>
+            <field name="model">e3tmad.database</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="driver"/>
+                        <field name="host"/>
+                    </group>
+                    <group>
+                        <field name="user"/>
+                        <field name="password"/>
+                        <field name="dbname"/>
+                    </group>
+                    <notebook>
+                        <page string="Connection String">
+                            <field name="constring"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <!--the table module-->
+        <record model="ir.ui.view" id="e3tmad_table_list">
+            <field name="name">dbCronRetrieve table list</field>
+            <field name="model">e3tmad.table</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="db_id"/>
+                    <field name="table"/>
+                    <!--<field name="is_ret"/>-->
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="e3tmad_table_form">
+            <field name="name">dbCronRetrieve table form</field>
+            <field name="model">e3tmad.table</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="db_id"/>
+                        <field name="table"/>
+                        <field name="tb_fields" widget="one2many_list">
+                            <tree string="Fields" editable="buttom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="where"/>
+                        <field name="qustring"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--the where field model form view-->
+        <record model="ir.ui.view" id="e3tmad_where_form">
+            <field name="name">dbCronRetrieve where form</field>
+            <field name="model">e3tmad.wherefield</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="field"/>
+                    </group>
+                    <group>
+                        <field name="from_value"/>
+                        <field name="to_value"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--the field model form view-->
+        <record model="ir.ui.view" id="e3tmad_field_form">
+            <field name="name">dbCronRetrieve field form</field>
+            <field name="model">e3tmad.field</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!--the result module-->
+        <record model="ir.ui.view" id="e3tmad_result_list">
+            <field name="name">dbCronRetrieve result list</field>
+            <field name="model">e3tmad.result</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="table"/>
+                    <field name="query"/>
+                    <!--<field name="result"/>-->
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="e3tmad_result_form">
+            <field name="name">dbCronRetrieve result list</field>
+            <field name="model">e3tmad.result</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" readonly='True'/>
+                        <field name="table" readonly='True'/>
+                        <field name="query" readonly='True'/>
+                        <field name="result" readonly='True'/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="dbcronretrieve_action_window_db">
+            <field name="name">Db</field>
+            <field name="res_model">e3tmad.database</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window" id="dbcronretrieve_action_window_table">
+            <field name="name">Table</field>
+            <field name="res_model">e3tmad.table</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window" id="dbcronretrieve_action_window_result">
+            <field name="name">Result</field>
+            <field name="res_model">e3tmad.result</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="dbCronRetrieve" id="dbcronretrieve_menu_root"/>
+
+        <!--Submenus  -->
+
+        <menuitem name="DB" id="dbcronretrieve_db" parent="dbcronretrieve_menu_root"/>
+        <menuitem name="DB" id="dbcronretrieve_db_db" parent="dbcronretrieve_db"
+                  action="dbcronretrieve_action_window_db"/>
+        <menuitem name="Table" id="dbcronretrieve_table" parent="dbcronretrieve_menu_root"/>
+        <menuitem name="Table" id="dbcronretrieve_table_table" parent="dbcronretrieve_table"
+                  action="dbcronretrieve_action_window_table"/>
+        <menuitem name="Result" id="dbcronretrieve_result" parent="dbcronretrieve_menu_root"/>
+        <menuitem name="Result" id="dbcronretrieve_result_result" parent="dbcronretrieve_result"
+                  action="dbcronretrieve_action_window_result"/>
+    </data>
+</odoo>
